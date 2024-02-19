@@ -1,0 +1,61 @@
+@use '@angular/material' as mat;
+@use 'variables' as v;
+
+.search {
+    margin: 12px;
+
+    mat-form {
+        width: 100%;
+    }
+
+    input {
+        width: 100%;
+    }
+}
+
+.list {
+    display: grid;
+    grid-template-columns: 1fr;
+    min-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+
+    td,
+    th {
+        text-align: center;
+        border-bottom-style: none;
+    }
+
+    tr {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        opacity: 100%;
+        margin-bottom: 1px;
+        align-items: center;
+
+
+        &:hover {
+            opacity: 100%;
+
+        }
+    }
+
+    [mat-row] {
+        &:active {
+            opacity: 20%;
+        }
+
+        &:nth-child(even) {
+            background-color: mat.get-theme-color(v.$theme, 'accent', 100);
+
+        }
+
+        &:nth-child(odd) {
+            background-color: mat.get-theme-color(v.$theme, 'accent', 300);
+        }
+    }
+
+    [mat-header-row] {
+        background-color: mat.get-theme-color(v.$theme, 'primary', 300);
+    }
+}

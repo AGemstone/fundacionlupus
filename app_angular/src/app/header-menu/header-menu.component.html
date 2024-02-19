@@ -1,0 +1,32 @@
+<mat-toolbar class="bar">
+  <!-- <div class="primary"></div> -->
+  <span class="home-button">
+    <img
+      ngSrc="assets/logo.png"
+      fill
+      priority
+      (click)="router.navigate([''])"
+      style="position: relative"
+    />
+  </span>
+
+  <!-- <span > -->
+  <button
+    mat-button
+    class="menu-button"
+    #menuProfileTrigger="matMenuTrigger"
+    [matMenuTriggerFor]="menuProfile"
+    (mouseover)="menuOpen(menuProfileTrigger)"
+  >
+    <mat-icon iconPositionEnd>expand_more</mat-icon>
+    Perfil
+  </button>
+  <mat-menu #menuProfile="matMenu" xPosition="after" [overlapTrigger]="false">
+    <span (mouseleave)="menuClose(menuProfileTrigger)">
+      <button mat-menu-item (click)="router.navigate(['profile/form'])">
+        Formulario
+      </button>
+    </span>
+  </mat-menu>
+  <!-- </span> -->
+</mat-toolbar>

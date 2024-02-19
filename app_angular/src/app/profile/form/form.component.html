@@ -1,0 +1,46 @@
+<!-- <section > -->
+  <form class="profile-form" [formGroup]="panelControl" (ngSubmit)="onSubmit()">
+    <mat-accordion multi>
+      <app-panel-personal
+        (opened)="setStep($event)"
+        [step]="step"
+        [formGroup]="panelControl.controls.personal"
+      >
+      </app-panel-personal>
+      <app-panel-salud
+        [edad]="calcAge()"
+        (opened)="setStep($event)"
+        [step]="step"
+        [formGroup]="panelControl.controls.salud"
+      >
+      </app-panel-salud>
+
+      <app-panel-lupus
+        [step]="step"
+        (opened)="setStep($event)"
+        [formGroup]="panelControl.controls.lupus_sistemico"
+        [disabled]="panelControl.value.salud!.tipo_lupus !== 'Sistemico'"
+      >
+      </app-panel-lupus>
+      <app-panel-medicacion
+        [step]="step"
+        (opened)="setStep($event)"
+        [formGroup]="panelControl.controls.medicacion"
+      >
+      </app-panel-medicacion>
+      <app-panel-enfermedad
+        [step]="step"
+        [formGroup]="panelControl"
+        (opened)="setStep($event)"
+      >
+      </app-panel-enfermedad>
+      <app-panel-hospital
+        (opened)="setStep($event)"
+        [step]="step"
+        [formGroup]="panelControl"
+      >
+      </app-panel-hospital>
+    </mat-accordion>
+    <button mat-raised-button color="primary" type="submit" >Enviar!</button>
+  </form>
+<!-- </section> -->

@@ -1,0 +1,63 @@
+{
+  "formData": [
+    {
+      "title": "Informacion personal",
+      "description": "",
+      "inputs": [
+        {
+          "name": "nombres",
+          "type": "string",
+          "label": "Nombres"
+        },
+        {
+          "name": "apellidos",
+          "type": "string",
+          "label": "Apellidos"
+        },
+        {
+          "name": "dni",
+          "type": "number",
+          "label": "DNI"
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "label": "Email"
+        },
+        {
+          "name": "telefono",
+          "type": "number",
+          "label": "Telefono"
+        }
+      ]
+    },
+    {
+      "id": "salud",
+      "title": "Informacion ...",
+      "description": "",
+      "inputs": [
+        {
+          "name": "obra_social",
+          "type": "boolean",
+          "label": "Cuenta con obra social?"
+        }
+      ]
+    },
+    {
+      "id": "obra_social",
+      "depends": {
+        "parent_id": "salud",
+        "input_name": "obra_social"
+      },
+      "title": "Informacion ...",
+      "description": "",
+      "inputs": [
+        {
+          "name": "obra_social",
+          "type": "boolean",
+          "label": "Cuenta con obra social?"
+        }
+      ]
+    }
+  ]
+}

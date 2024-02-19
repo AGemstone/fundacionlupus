@@ -1,0 +1,13 @@
+@use "variables" as v;
+@use "@angular/material" as mat;
+.square-button {
+  display: inline-block;
+  padding: 1.2em 0;
+  height: 100%;
+  border-color: rgba(0, 0, 0, 0.4);
+  line-height: mat.get-theme-typography(v.$theme, body-2, line-height);
+  margin-right: 1rem;
+  mat-icon {
+    margin: 0;
+  }
+}

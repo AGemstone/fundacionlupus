@@ -1,0 +1,28 @@
+@use "variables" as v;
+@use "@angular/material" as mat;
+.bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 3rem;
+}
+.color_primary {
+  color: mat.get-theme-color(v.$theme, "primary", "default");
+}
+.menu-button {
+  //   height: ;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  &:hover {
+    color: #fff;
+  }
+}
+.home-button {
+  height: 100%;
+  //   width: 40%;
+  aspect-ratio: 2.5;
+  padding: 1rem;
+  object-fit: contain;
+  &:hover {
+    opacity: 80%;
+  }
+}

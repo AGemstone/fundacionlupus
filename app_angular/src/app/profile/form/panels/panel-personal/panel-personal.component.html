@@ -1,0 +1,83 @@
+<app-panel
+  title="Informacion personal"
+  [expanded]="step() === 0"
+  (opened)="notifyOpen($event)"
+  [id]="0"
+>
+  <div [formGroup]="formGroup">
+    <div class="form-content">
+      <mat-form-field appearance="outline">
+        <mat-label> Nombres </mat-label>
+        <input matInput formControlName="nombres" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label> Apellidos </mat-label>
+        <input matInput formControlName="apellidos" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label> DNI </mat-label>
+        <input matInput minvalue="0" type="number" formControlName="dni" />
+      </mat-form-field>
+    </div>
+    <div class="form-content">
+      <mat-form-field appearance="outline">
+        <mat-label> Email </mat-label>
+        <input type="email" matInput formControlName="email" />
+        <mat-error>{{handleError("email")}}</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label> Telefono </mat-label>
+        <input matInput type="number" formControlName="telefono" />
+      </mat-form-field>
+    </div>
+    <div class="form-content">
+      <mat-form-field appearance="outline">
+        <mat-label>Fecha de nacimiento</mat-label>
+        <mat-datepicker-toggle
+          [for]="pickerBirth"
+          hidden
+        ></mat-datepicker-toggle>
+        <input
+          matInput
+          (focus)="pickerBirth.open()"
+          (click)="pickerBirth.open()"
+          [matDatepicker]="pickerBirth"
+          readonly
+          formControlName="fecha_nacimiento"
+        />
+        <mat-datepicker #pickerBirth></mat-datepicker>
+        <button
+          mat-icon-button
+          matIconSuffix
+          (click)="formGroup.controls['fecha_nacimiento'].reset('')"
+          [hidden]="formGroup.value.fecha_nacimiento === ''"
+        >
+          <mat-icon matDatepickerToggleIcon>clear</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" hidden>
+        <mat-label for="estado_civil"> Estado civil </mat-label>
+        <mat-select id="estado_civil" formControlName="estado_civil">
+          <mat-option>Ninguno</mat-option>
+          @for(option of estadosCiviles;track $index){
+          <mat-option [value]="option">
+            {{ option }}
+          </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label> Sexo </mat-label>
+        <mat-select formControlName="sexo">
+          <mat-option value="Masculino"> Masculino </mat-option>
+          <mat-option value="Femenino"> Femenino </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label> Ocupacion </mat-label>
+        <input matInput formControlName="ocupacion" />
+      </mat-form-field>
+    </div>
+  </div>
+</app-panel>

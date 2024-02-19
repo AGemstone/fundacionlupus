@@ -1,0 +1,16 @@
+<!-- <mat-expansion-panel [expanded]="expanded" (opened)="setStep(step)"> -->
+<!-- <mat-accordion multi> -->
+
+<mat-expansion-panel [expanded]="expanded" (opened)="onOpen(id)" [disabled]="disabled">
+  <mat-expansion-panel-header>
+    <mat-panel-title
+      ><h3>{{ title }}</h3>
+    </mat-panel-title>
+    <mat-panel-description>
+      {{ description }}
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <mat-divider style="margin-bottom: 1rem"></mat-divider>
+  <ng-content></ng-content>
+</mat-expansion-panel>
+<!-- </mat-accordion> -->

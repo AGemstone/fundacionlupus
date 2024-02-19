@@ -1,0 +1,7 @@
+@use "variables" as v;
+@use "@angular/material" as mat;
+
+mat-checkbox[disabled=true]{
+    color:aqua
+
+}

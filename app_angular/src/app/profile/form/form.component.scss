@@ -1,0 +1,58 @@
+// @use "variables" as v;
+// @use "@angular/material" as mat;
+
+// .profile-form {
+//   margin: 3rem;
+//   display: grid;
+//   grid-template-columns: 1fr;
+// }
+
+// .form-content {
+//   display: flex;
+//   // align-items: center;
+//   // margin-bottom: 1rem;
+
+//   mat-form-field {
+//     width: 100%;
+//     // @extend .form-content;
+//     display: inline-block;
+
+//     margin-right: 1rem;
+//     margin-bottom: 0;
+//     align-self: center;
+//     [matIconSuffix] {
+//       margin-right: 0.5rem;
+//     }
+//   }
+
+//   mat-checkbox {
+//     @extend .form-content;
+//     margin-right: 1rem;
+//     margin-bottom: 0.5rem;
+//   }
+
+//   .square-button {
+//     display: inline-block;
+//     padding: 1.2em 0;
+//     height: 100%;
+//     border-color: rgba(0, 0, 0, 0.4);
+//     line-height: mat.get-theme-typography(v.$theme, body-2, line-height);
+//     margin-right: 1rem;
+//     mat-icon {
+//       margin: 0;
+//     }
+//   }
+// }
+
+// @media screen and (max-width: 900px) {
+//   .form-content {
+//     flex-wrap: wrap;
+//     #add_med {
+//       width: 100%;
+//     }
+//   }
+// }
+
+button{
+    margin-top: 1rem;
+}

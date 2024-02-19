@@ -1,0 +1,12 @@
+.home {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  height:1000px;
+  margin: 12px;
+  mat-card {
+    margin: 12px;
+  }
+  mat-form-field {
+    @extend mat-card;
+  }
+}

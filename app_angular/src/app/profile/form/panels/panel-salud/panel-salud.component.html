@@ -1,0 +1,176 @@
+<app-panel
+  title="Ubicacion"
+  [expanded]="step() === 1"
+  (opened)="notifyOpen($event)"
+  [id]="1"
+>
+  <div [formGroup]="formGroup.get('ubicacion') | cast : formGroup_T">
+    <div class="form-content">
+      <mat-form-field appearance="outline">
+        <mat-label> Provincia </mat-label>
+        <mat-select formControlName="provincia">
+          @for (option of provincias; track option){
+          <mat-option [value]="option">
+            {{ option }}
+          </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label> Localidad </mat-label>
+        <input matInput formControlName="localidad" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label> Codigo postal </mat-label>
+        <input matInput formControlName="codigo_postal" />
+      </mat-form-field>
+    </div>
+    <div class="form-content">
+      <mat-form-field appearance="outline">
+        <mat-label> Barrio </mat-label>
+        <input matInput formControlName="barrio" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label> Direccion </mat-label>
+        <input matInput formControlName="direccion" />
+      </mat-form-field>
+    </div>
+  </div>
+</app-panel>
+<app-panel
+  [formGroup]="formGroup"
+  title="Informacion de salud"
+  [expanded]="step() === 2"
+  (opened)="notifyOpen($event)"
+  [id]="2"
+>
+  <mat-checkbox
+    [formControl]="obra_social_check"
+    (change)="toggleControlEnable('obra_social')"
+    color="primary"
+  >
+    Cuenta con obra social?
+  </mat-checkbox>
+  <div [formGroup]="formGroup.get('obra_social') | cast : formGroup_T">
+    <mat-form-field appearance="outline">
+      <mat-label>Buscar</mat-label>
+      <input matInput formControlName="id" [matAutocomplete]="auto" />
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        @for (option of obrasSocialesFiltered | async; track option) {
+        <mat-option
+          [value]="option.name"
+          (onSelectionChange)="
+            formGroup.get(['obra_social', 'rnos'])!.setValue(option.rnos)
+          "
+        >
+          {{ option.name }}
+        </mat-option>
+        }
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+  <mat-checkbox
+    [formControl]="cuidador_check"
+    (change)="toggleControlEnable('cuidador', edad < 18)"
+    [color]="themeCheckboxDisabled(edad < 18)"
+    [disableRipple]="edad < 18"
+  >
+    Lo cuida un tutor o familar?
+  </mat-checkbox>
+  <div [formGroup]="formGroup.get('cuidador') | cast : formGroup_T">
+    <div class="form-content">
+      <mat-form-field appearance="outline">
+        <mat-label> Nombres de su cuidador </mat-label>
+        <input matInput formControlName="nombres" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label> Apellidos de su cuidador </mat-label>
+        <input matInput formControlName="apellidos" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label> DNI de su cuidador </mat-label>
+        <input matInput minvalue="0" type="number" formControlName="dni" />
+      </mat-form-field>
+    </div>
+    <div class="form-content">
+      <mat-form-field appearance="outline">
+        <mat-label> Parentesco con su cuidador </mat-label>
+        <input matInput formControlName="parentesco" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label> Email de su cuidador</mat-label>
+        <input matInput formControlName="email" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label> Telefono de su cuidador </mat-label>
+        <input matInput type="number" formControlName="telefono" />
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="form-content">
+    <mat-checkbox formControlName="cud" color="primary">
+      Tiene certificado unico de discapacidad?
+    </mat-checkbox>
+    <mat-checkbox formControlName="urgencia_check" color="primary">
+      Alguna vez tuvo que acudiar de emergencia al hospital?
+    </mat-checkbox>
+    <mat-checkbox formControlName="visita_check" color="primary">
+      Visita regularmente a su medico?
+    </mat-checkbox>
+  </div>
+  <div class="form-content">
+    <mat-form-field appearance="outline">
+      <mat-label> Que tipo de Lupus le diagnosticaron? </mat-label>
+      <mat-select formControlName="tipo_lupus">
+        <mat-option value="Discoide"> Discoide </mat-option>
+        <mat-option value="Sistemico"> Sistemico </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Fecha de diagnostico</mat-label>
+      <mat-datepicker-toggle matIconSuffix [for]="pickerDiagnostic" hidden>
+        <mat-datepicker hidden #pickerDiagnostic></mat-datepicker>
+        <mat-icon></mat-icon>
+      </mat-datepicker-toggle>
+      <input
+        matInput
+        readonly
+        (focus)="pickerDiagnostic.open()"
+        (click)="pickerDiagnostic.open()"
+        [matDatepicker]="pickerDiagnostic"
+        formControlName="fecha_diagnostico"
+      />
+      <button
+        mat-icon-button
+        matIconSuffix
+        (click)="formGroup.controls['fecha_diagnostico'].reset('')"
+        [hidden]="formGroup.value.fecha_diagnostico === ''"
+      >
+        <mat-icon matDatepickerToggleIcon>clear</mat-icon>
+      </button>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Fecha de su ultima visita al medico</mat-label>
+      <mat-datepicker-toggle matIconSuffix [for]="pickerVisit" hidden>
+        <mat-datepicker hidden #pickerVisit></mat-datepicker>
+        <mat-icon></mat-icon>
+      </mat-datepicker-toggle>
+      <input
+        matInput
+        readonly
+        (focus)="pickerVisit.open()"
+        (click)="pickerVisit.open()"
+        [matDatepicker]="pickerVisit"
+        formControlName="fecha_visita"
+      />
+      <button
+        mat-icon-button
+        matIconSuffix
+        (click)="formGroup.controls['fecha_visita'].reset('')"
+        [hidden]="formGroup.value.fecha_visita === ''"
+      >
+        <mat-icon matDatepickerToggleIcon>clear</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+</app-panel>

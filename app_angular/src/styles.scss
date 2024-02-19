@@ -1,0 +1,121 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use "@angular/material" as mat;
+// Plus imports for other components in your app.
+@use "./lupus_palette.scss" as palette;
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$front_lupus-primary: mat.define-palette(palette.$primary_palette);
+$front_lupus-accent: mat.define-palette(
+  palette.$secondary_palette,
+  A200,
+  A100,
+  A400
+);
+
+// The warn palette is optional (defaults to red).
+$front_lupus-warn: mat.define-palette(palette.$warn_palette);
+
+$front_lupus_typography: mat.define-typography-config(
+  $font-family: Martel,
+);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$front_lupus-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $front_lupus-primary,
+      accent: $front_lupus-accent,
+      warn: $front_lupus-warn,
+    ),
+    typography: $front_lupus_typography,
+  )
+);
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($front_lupus-theme);
+
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+  background-color: mat.get-theme-color(
+    $front_lupus-theme,
+    "accent",
+    "default"
+  );
+}
+
+body {
+  margin: 0;
+  font-family: "Martel", serif;
+}
+
+div.cdk-overlay-container .mat-mdc-menu-content {
+  padding-top: 0;
+}
+
+.profile-form {
+  margin: 3rem;
+  display: grid;
+  grid-template-columns: 1fr;
+
+  .form-content {
+    display: flex;
+    mat-form-field {
+      width: 100%;
+      margin-right: 1rem;
+      margin-bottom: 0.5rem;
+      [matIconSuffix] {
+        margin-right: 0.5rem;
+      }
+    }
+
+    .slider {
+      display: grid;
+      width: 100%;
+      margin-right: 1rem;
+      // padding-bottom: 0.5rem;
+      grid-template-columns: 1fr auto;
+      grid-template-rows: auto 1fr;
+      mat-slider {
+        grid-column: span 2;
+      }
+      .slide {
+        align-self: center;
+      }
+      .label {
+        margin: 0;
+        justify-self: start;
+      }
+      .value {
+        margin: 0;
+        justify-self: end;
+      }
+    }
+
+    mat-checkbox {
+      margin-right: 1rem;
+      margin-bottom: 0.5rem;
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .profile-form .form-content {
+    flex-wrap: wrap;
+    .list-submit {
+      width: 100%;
+    }
+  }
+}
