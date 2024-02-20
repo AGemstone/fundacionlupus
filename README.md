@@ -1,14 +1,14 @@
-# Fundacion Lupus
-A webpage developed for Fundacion Lupus Cordoba.
+# Fundacion Lupus (UNDER CONSTRUCTION ⚠️)
+A webpage developed for Fundacion Lupus Cordoba, made with Angular, Fastapi and PostgresQL in mind.
 
-## Backend: Fastapi
+## Backend
 Create a _virtual environment_ using ```venv ```
 
 Install the required packages with ```pip install -r requirements.txt```
 
 Start the server with ```uvicorn main:app```
 
-## Frontend: Angular
+## Frontend
 Install the required packages with ```npm install```
 
 Start the server with ```ng serve```
