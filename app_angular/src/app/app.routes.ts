@@ -25,7 +25,7 @@ export const routes: Routes = [
     component: ProfileFormComponent,
   },
   {
-    path: "admin/profiles",
+    path: "admin/profile/list",
     component: ProfileListComponent,
   },
   { path: "**", pathMatch: "full", component: NotFoundComponent },

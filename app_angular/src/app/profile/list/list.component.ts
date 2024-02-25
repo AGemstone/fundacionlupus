@@ -33,7 +33,7 @@ export class ProfileListComponent {
     private backend: BackendProviderService
   ) {
     let backendUrl = backend.apiRoot;
-    this.http.get<IPerson[]>(`${backendUrl}/personas`).subscribe((personas) => {
+    this.http.get<IPerson[]>(`${backendUrl}/persona`).subscribe((personas) => {
       this.personasData = personas;
     });
   }

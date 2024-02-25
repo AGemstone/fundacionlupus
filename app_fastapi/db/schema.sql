@@ -1,14 +1,7 @@
-DROP TABLE IF EXISTS persona,
-cuidador,
-perfil,
-medicacion,
-otras_enfermedades,
-lupus_sistemico,
-experiencia_hospitalaria CASCADE;
-DROP TYPE IF EXISTS T_sexo,T_fuente,T_lupus,T_provincia,T_estado_civil CASCADE;
+CREATE TABLE IF NOT EXISTS lupus_db;
 -- Enums 
-CREATE TYPE T_sexo AS ENUM('Masculino', 'Femenino');
-CREATE TYPE T_estado_civil AS ENUM(
+CREATE TYPE IF NOT EXISTS T_sexo AS ENUM('Masculino', 'Femenino');
+CREATE TYPE IF NOT EXISTS T_estado_civil AS ENUM(
     'Soltero',
     'Casado',
     'Unión libre o unión de hecho',
@@ -16,7 +9,7 @@ CREATE TYPE T_estado_civil AS ENUM(
     'Divorciado',
     'Viudo'
 );
-CREATE TYPE T_provincia AS ENUM(
+CREATE TYPE IF NOT EXISTS T_provincia AS ENUM(
     'Buenos Aires',
     'Ciudad Autónoma de Buenos Aires',
     'Catamarca',
@@ -42,10 +35,10 @@ CREATE TYPE T_provincia AS ENUM(
     'Tierra del Fuego, Antártida e Islas del Atlántico Sur',
     'Tucumán'
 );
-CREATE TYPE T_fuente AS ENUM('Obra Social', 'Ingresos propios', 'Mixto');
-CREATE TYPE T_lupus AS ENUM('Sistemico', 'Discoide', 'Indefinido');
+CREATE TYPE IF NOT EXISTS T_fuente AS ENUM('Obra Social', 'Ingresos propios', 'Mixto');
+CREATE TYPE IF NOT EXISTS T_lupus AS ENUM('Sistemico', 'Discoide', 'Indefinido');
 -- Table schemas
-CREATE TABLE persona(
+CREATE TABLE IF NOT EXISTS persona(
     id SERIAL PRIMARY KEY,
     nombres VARCHAR(128) NOT NULL,
     apellidos VARCHAR(128) NOT NULL,
@@ -55,7 +48,7 @@ CREATE TABLE persona(
     telefono BIGINT,
     CHECK(email IS NOT NULL OR telefono IS NOT NULL)
 );
-CREATE TABLE cuidador(
+CREATE TABLE IF NOT EXISTS cuidador(
     id SERIAL PRIMARY KEY,
     id_paciente INT NOT NULL,
     id_cuidador INT NOT NULL,
@@ -70,7 +63,7 @@ CREATE TABLE IF NOT EXISTS obra_social(
     nombre VARCHAR(300) NOT NULL
     -- sigla VARCHAR(20)
 );
-CREATE TABLE perfil(
+CREATE TABLE IF NOT EXISTS perfil(
     id INT PRIMARY KEY,
     id_cuidador INT,
     sexo T_sexo NOT NULL,
@@ -96,7 +89,7 @@ CREATE TABLE perfil(
     FOREIGN KEY (id) REFERENCES persona(id) ON DELETE CASCADE
     -- FOREIGN KEY (id_cuidador) REFERENCES cuidador(id) ON DELETE CASCADE
 );
-CREATE TABLE medicacion(
+CREATE TABLE IF NOT EXISTS medicacion(
     id BIGSERIAL PRIMARY KEY,
     id_paciente INT NOT NULL,
     medicamento VARCHAR(64) NOT NULL,
@@ -110,13 +103,13 @@ CREATE TABLE medicacion(
     CHECK(frecuencia <= 27),
     FOREIGN KEY (id_paciente) REFERENCES perfil(id) ON DELETE CASCADE
 );
-CREATE TABLE otras_enfermedades(
+CREATE TABLE IF NOT EXISTS otras_enfermedades(
     id SERIAL PRIMARY KEY,
     id_paciente INT NOT NULL,
     enfermedad VARCHAR(64),
     FOREIGN KEY (id_paciente) REFERENCES perfil(id) ON DELETE CASCADE
 );
-CREATE TABLE lupus_sistemico(
+CREATE TABLE IF NOT EXISTS lupus_sistemico(
     id_paciente INT PRIMARY KEY,
     cerebro BOOLEAN NOT NULL,
     pulmones BOOLEAN NOT NULL,
@@ -128,7 +121,7 @@ CREATE TABLE lupus_sistemico(
     otros TEXT,
     FOREIGN KEY (id_paciente) REFERENCES perfil(id) ON DELETE CASCADE
 );
-CREATE TABLE experiencia_hospitalaria(
+CREATE TABLE IF NOT EXISTS  experiencia_hospitalaria(
     id SERIAL PRIMARY KEY,
     id_paciente INT,
     unidad_hospitalaria VARCHAR(128) NOT NULL,
