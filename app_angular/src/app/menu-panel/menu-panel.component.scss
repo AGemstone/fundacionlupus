@@ -1,0 +1,22 @@
+@use "variables" as v;
+@use "@angular/material" as mat;
+.menu-button {
+  height: var(--mat-toolbar-standard-height);
+  padding: 0rem 2rem;
+  margin: 0rem 0.5rem;
+  z-index: 1001;
+  font-weight: bold;
+  --mat-mdc-button-persistent-ripple-color: none;
+  transition: color 0.5s ease-in;
+  &:hover {
+    color: mat.get-theme-color(v.$theme, "primary", "default");
+  }
+}
+.mat-mdc-menu-item {
+  transition: color 0.5s ease-in-out;
+  &:hover {
+    color: mat.get-theme-color(v.$theme, "primary", "default");
+  }
+}
+button {
+}

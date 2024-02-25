@@ -1,0 +1,24 @@
+<button
+  mat-button
+  disableRipple
+  (mouseenter)="menuOpen(menuTrigger)"
+  (mouseleave)="menuClose(menuTrigger)"
+  class="menu-button"
+  #menuTrigger="matMenuTrigger"
+  [matMenuTriggerFor]="menu"
+>
+  <mat-icon iconPositionEnd>expand_more</mat-icon>
+  {{menuName}}
+</button>
+<mat-menu #menu="matMenu" xPosition="before" [overlapTrigger]="false">
+  <span
+    (mouseenter)="menuOpen(menuTrigger )"
+    (mouseleave)="menuClose(menuTrigger)"
+  >
+    @for(item of menuItems; track $index){
+    <button mat-menu-item (click)="router.navigate([item.route])">
+      {{ item.name }}
+    </button>
+    }
+  </span>
+</mat-menu>
