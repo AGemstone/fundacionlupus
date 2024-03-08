@@ -16,9 +16,7 @@
 .list {
     display: grid;
     grid-template-columns: 1fr;
-    min-width: 80%;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 2rem;
 
     td,
     th {
@@ -29,33 +27,25 @@
     tr {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
-        opacity: 100%;
         margin-bottom: 1px;
         align-items: center;
-
-
-        &:hover {
-            opacity: 100%;
-
-        }
     }
 
     [mat-row] {
         &:active {
-            opacity: 20%;
+            opacity: 80%;
         }
-
-        &:nth-child(even) {
-            background-color: mat.get-theme-color(v.$theme, 'accent', 100);
-
+        &:hover {
+            background-color: mat.get-theme-color(v.$theme, 'accent', 200);
         }
-
-        &:nth-child(odd) {
-            background-color: mat.get-theme-color(v.$theme, 'accent', 300);
+        background-color: mat.get-theme-color(v.$theme, 'accent', 100);
+        &:last-child {
+            border-radius: 5px;
         }
     }
 
     [mat-header-row] {
-        background-color: mat.get-theme-color(v.$theme, 'primary', 300);
+        background-color: mat.get-theme-color(v.$theme, accent, 400);
+        font-weight: bold;
     }
 }

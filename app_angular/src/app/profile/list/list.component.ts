@@ -1,13 +1,14 @@
-import { Component, Injectable } from "@angular/core";
-import { IPerson } from "@interfaces/iperson";
+import { Component, Injectable, inject } from "@angular/core";
+import { PersonaInterface } from "@interfaces/persona.interface";
 import { HttpClient } from "@angular/common/http";
 import { DecimalPipe, DatePipe, KeyValuePipe } from "@angular/common";
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { MatTableModule } from "@angular/material/table";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { BackendProviderService } from "@app/backend-provider.service";
+import { EmptyStringViewPipe } from "@app/pipes/empty-string-view.pipe";
 
 @Component({
   selector: "app-profile-list",
@@ -21,21 +22,23 @@ import { BackendProviderService } from "@app/backend-provider.service";
     MatFormFieldModule,
     MatIconModule,
     MatProgressSpinnerModule,
+    EmptyStringViewPipe
   ],
   templateUrl: "./list.component.html",
   styleUrl: "./list.component.scss",
 })
 export class ProfileListComponent {
-  personasData: IPerson[] = [];
-  displayedColumns = ["dni", "nombres", "apellidos", "email", "telefono"];
-  constructor(
-    private http: HttpClient,
-    private backend: BackendProviderService
-  ) {
-    let backendUrl = backend.apiRoot;
-    this.http.get<IPerson[]>(`${backendUrl}/persona`).subscribe((personas) => {
-      this.personasData = personas;
-    });
+  http = inject(HttpClient)
+  backend = inject(BackendProviderService)
+  router = inject(Router)
+  
+  personasData: PersonaInterface[] = [];
+  displayedColumns = ["DNI", "Nombres", "Apellidos", "Email", "Telefono"];
+  
+  constructor() {
+    this.http.get<PersonaInterface[]>(`${this.backend.apiRoot}/persona`)
+      .subscribe((personas) => {
+        this.personasData = personas;
+      });
   }
-  viewProfile(id: number) {}
 }

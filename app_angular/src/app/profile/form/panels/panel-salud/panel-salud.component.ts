@@ -2,7 +2,6 @@ import {
   Component,
   EventEmitter,
   Input,
-  OnDestroy,
   OnInit,
   Output,
   inject,
@@ -11,13 +10,12 @@ import {
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { HttpClient } from "@angular/common/http";
 import { Observable, startWith, map } from "rxjs";
-import { IObraSocial } from "@app/interfaces/iobra-social";
+import { ObraSocialInterface } from "@app/interfaces/obra-social.interface";
 import { BackendProviderService } from "@app/backend-provider.service";
 
 @Component({
   selector: "app-panel-salud",
   standalone: false,
-  // imports: [],
   templateUrl: "./panel-salud.component.html",
   styleUrl: "./panel-salud.component.scss",
 })
@@ -60,13 +58,13 @@ export class PanelSaludComponent implements OnInit {
     "Tucumán",
   ];
   formGroup_T = FormGroup;
-  obrasSociales: IObraSocial[] = [];
+  obrasSociales: ObraSocialInterface[] = [];
   obrasSocialesFiltered: Observable<{ name: string; rnos: number | null }[]> =
     new Observable<{ name: string; rnos: number | null }[]>();
 
   constructor() {
     this.http
-      .get<IObraSocial[]>(`${this.backend.apiRoot}/extra/obra_social`)
+      .get<ObraSocialInterface[]>(`${this.backend.apiRoot}/extra/obra_social`)
       .subscribe((data) => {
         this.obrasSociales = data;
       });
@@ -86,7 +84,6 @@ export class PanelSaludComponent implements OnInit {
         startWith(""),
         map((value) => this._filterObraSociales(value || ""))
       );
-    // console.log(this.formGroup);
   }
 
   private _filterObraSociales(

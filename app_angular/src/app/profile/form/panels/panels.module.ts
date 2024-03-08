@@ -1,4 +1,4 @@
-import { NgModule, input } from "@angular/core";
+import { NgModule } from "@angular/core";
 import { AsyncPipe, CommonModule } from "@angular/common";
 import { PanelSaludComponent } from "./panel-salud/panel-salud.component";
 import { MatFormFieldModule } from "@angular/material/form-field";
@@ -9,7 +9,7 @@ import { MatNativeDateModule } from "@angular/material/core";
 import { MatInputModule } from "@angular/material/input";
 import { PanelPersonalComponent } from "./panel-personal/panel-personal.component";
 import { ReactiveFormsModule } from "@angular/forms";
-import { CastPipe } from "@app/cast.pipe";
+import { CastPipe } from "@app/pipes/cast.pipe";
 import { MatIconModule } from "@angular/material/icon";
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { MatCheckboxModule } from "@angular/material/checkbox";
@@ -21,7 +21,6 @@ import { PanelHospitalComponent } from "./panel-hospital/panel-hospital.componen
 import { PanelEnfermedadComponent } from "./panel-enfermedad/panel-enfermedad.component";
 import { MatButtonModule } from "@angular/material/button";
 import { MatSliderModule } from "@angular/material/slider";
-
 
 @NgModule({
   declarations: [

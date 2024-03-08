@@ -1,9 +1,9 @@
 <section class="header"></section>
 <section class="search">
-  <mat-form-field appearance="fill">
+  <!-- <mat-form-field appearance="fill">
     <mat-label> Buscar </mat-label>
     <input matInput placeholder="Placeholder" />
-  </mat-form-field>
+  </mat-form-field> -->
 </section>
 <section class="list">
   @defer {
@@ -12,20 +12,30 @@
     <tr
       mat-row
       *matRowDef="let row; columns: displayedColumns"
-      [routerLink]="row.id"
+      [routerLink]="['/perfil']"
+      [queryParams]="{
+        nombres: row.nombres,
+        apellidos: row.apellidos,
+        dni: row.dni
+      }"
     ></tr>
     @for (header of displayedColumns; track $index) { @if (["dni",
     "telefono"].includes(header)) {
     <ng-container [matColumnDef]="header">
       <th mat-header-cell *matHeaderCellDef>{{ header }}</th>
       <td mat-cell *matCellDef="let persona">
-        {{ persona[header] | number : "3.0-0" }}
+        {{
+          persona[header.toLocaleLowerCase()]
+            | emptyStringView 
+        }}
       </td>
     </ng-container>
     } @else {
     <ng-container [matColumnDef]="header">
       <th mat-header-cell *matHeaderCellDef>{{ header }}</th>
-      <td mat-cell *matCellDef="let persona">{{ persona[header] }}</td>
+      <td mat-cell *matCellDef="let persona">
+        {{ persona[header.toLocaleLowerCase()] }}
+      </td>
     </ng-container>
     } }
   </table>

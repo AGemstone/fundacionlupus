@@ -21,3 +21,12 @@
     word-break: break-all;
   }
 }
+
+@media screen and (max-width: v.$small-screen-size) {
+  .profile-form .form-content {
+    flex-wrap: wrap;
+    .list-submit {
+      width: 100%;
+    }
+  }
+}
