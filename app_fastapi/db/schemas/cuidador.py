@@ -7,6 +7,7 @@ class CuidadorBase(BaseModel):
 
 
 class CuidadorForm(CuidadorBase, PersonaBase):
+    model_config = ConfigDict(from_attributes=True)
     # email: str
     # telefono: int | None
     pass

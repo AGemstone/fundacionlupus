@@ -1,6 +1,6 @@
 import { FormControl } from "@angular/forms";
 
-export interface IPanel {
+export interface PanelInterface {
   id?: string;
   depends?: { parent_id: string; input_name: string };
   title: string;

@@ -1,13 +1,22 @@
 from sqlalchemy import select
 from sqlalchemy.orm import Session
+from sqlalchemy.sql import ColumnCollection
+
 from db.models import Persona, Perfil, Cuidador
 from db.crud.persona import query_persona_id
-from db.schemas.perfil import PerfilBase, Ubicacion
+
+from db.schemas.perfil import PerfilBase, Ubicacion, PerfilView
+from db.schemas.cuidador import CuidadorForm
 
 
 def get_perfil(db: Session, nombres: str, apellidos: str, dni: int):
-    paciente_id = query_persona_id(nombres, apellidos, dni).cte()
-    return db.execute(select(Perfil).join(paciente_id)).scalar()
+    perfil = select(Perfil, Persona).join(Persona)
+
+    query = db.execute(perfil.where(Persona.nombres == nombres,
+                                    Persona.apellidos == apellidos,
+                                    Persona.dni == dni)).all()
+    if query != []:
+        return PerfilView(perfil=query[0][0].__dict__, persona=query[0][1].__dict__)
 
 
 def add_perfil(db: Session, persona_id: int, id_cuidador: int | None, perfil: PerfilBase, ubicacion: Ubicacion):

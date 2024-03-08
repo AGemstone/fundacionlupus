@@ -7,3 +7,6 @@ log.txt
 *cache*
 package-lock.json
 node_modules/
+compose.yaml
+Dockerfile
+.dockerignore

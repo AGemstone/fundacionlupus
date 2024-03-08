@@ -2,13 +2,25 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 from db.crud.persona import query_persona_id, add_persona
 from db.schemas.cuidador import CuidadorForm
-from db.schemas.persona import PersonaBase
+from db.schemas.persona import Persona
 from db.models import Cuidador, Persona
+import time
 
+def get_cuidador(db: Session, nombres: str, apellidos: str, dni: int):
+    paciente_id = select(Cuidador.id_paciente)
+    paciente_id = paciente_id.join(Persona,
+                                   onclause=Cuidador.id_paciente == Persona.id)
+    paciente_id = paciente_id.where(Persona.nombres == nombres,
+                                    Persona.apellidos == apellidos,
+                                    Persona.dni == dni).scalar_subquery()
 
-def get_cuidador():
-    pass
-
+    cuidador = select(Persona, Cuidador.parentesco)
+    cuidador = cuidador.join(Cuidador,
+                             onclause=Cuidador.id_cuidador == Persona.id)
+    query = db.execute(cuidador.where(
+        Cuidador.id_paciente == paciente_id)).all()
+    if query != []:
+        return CuidadorForm(**query[0][0].__dict__, parentesco=query[0][1])
 
 def add_cuidador(db: Session, id_paciente: int, cuidador: CuidadorForm):
     query_id_cuidador = query_persona_id(
@@ -24,8 +36,8 @@ def add_cuidador(db: Session, id_paciente: int, cuidador: CuidadorForm):
 
     # Cuidador no existe
     if id_cuidador is None:
-        persona_nueva = PersonaBase(
-            **cuidador.model_dump(exclude="parentesco"), fecha_nacimiento=None)
+        persona_nueva = PersonaBase(**cuidador.model_dump(exclude="parentesco"),
+                                    fecha_nacimiento=None)
         add_persona(db, persona_nueva)
         id_cuidador = db.execute(query_id_cuidador).scalar()
     # Cuidador existe

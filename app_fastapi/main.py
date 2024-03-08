@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from fastapi import FastAPI
-from routers import persona, perfil, extra
+from routers.classes import routers
 from db.engine import Reflected, engine
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -20,13 +20,13 @@ def create_app():
         allow_headers=["*"],
     )
     # Routes
-    app.include_router(persona.router)
-    app.include_router(perfil.router)
-    app.include_router(extra.router)
-    # Database
+    for router in routers:
+        app.include_router(router)
 
     return app
 
+
+# Database
 Reflected.prepare(engine)
 
 app = create_app()

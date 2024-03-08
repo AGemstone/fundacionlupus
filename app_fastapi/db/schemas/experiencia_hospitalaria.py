@@ -11,4 +11,3 @@ class ExperienciaBase(BaseModel):
 class ExperienciaHospitalaria(ExperienciaBase):
     model_config = ConfigDict(from_attributes=True)
     id: int
-    # id_paciente: int

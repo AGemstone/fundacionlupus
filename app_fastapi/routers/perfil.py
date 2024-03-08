@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query
 from typing import Annotated
 from datetime import date
 from sqlalchemy.orm import Session
-from pydantic import BaseModel
+
 from db.crud.persona import add_persona, query_persona_id
 from db.crud.perfil import get_perfil, add_perfil, delete_perfil
 from db.crud.cuidador import add_cuidador
@@ -10,9 +10,12 @@ from db.crud.medicacion import add_medicacion
 from db.crud.otras_enfermedades import add_enfermedades
 from db.crud.lupus_sistemico import add_lupus_organos
 from db.crud.experiencia_hospitalaria import add_experiencias
+
 from db.schemas.form_type import FormType
-from db.schemas.perfil import PerfilBase, Perfil
-from db.schemas.persona import Persona
+from db.schemas.perfil import PerfilBase, Perfil, PerfilView
+from db.schemas.persona import Persona, PersonaBase
+from db.schemas.cuidador import CuidadorBase
+
 from dependencies import get_db
 
 
@@ -23,16 +26,17 @@ router = APIRouter(
 )
 
 
-@router.get("/", response_model=Perfil | None)
+@router.get("/", response_model=PerfilView | None)
 def get(nombres: str,
         apellidos: str,
         dni: Annotated[int, Query(ge=0)],
         db: Session = Depends(get_db)):
     perfil = get_perfil(db, nombres, apellidos, dni)
+
     return perfil
 
 
-@router.post("/", response_model=None)
+@router.post("/", response_model=bool)
 def post(form_data: FormType,
          db: Session = Depends(get_db)):
 
@@ -44,9 +48,9 @@ def post(form_data: FormType,
                                             form_data.persona.fecha_nacimiento.day)
         if edad < 18:
             raise HTTPException(status_code=422,
-                            detail={"form":
-                                    "Menor de edad necesita cuidador"
-                                    })
+                                detail={"form":
+                                        "Menor de edad necesita cuidador"
+                                        })
 
     if (form_data.perfil.tipo_lupus == "Sistemico" and
             form_data.lupus_sistemico is None):
@@ -85,7 +89,7 @@ def post(form_data: FormType,
     add_enfermedades(db, id_perfil, form_data.otras_enfermedades)
     add_medicacion(db, id_perfil, form_data.medicacion)
     add_experiencias(db, id_perfil, form_data.experiencia_hospitalaria)
-    return None
+    return True
 
 
 @router.delete("/")

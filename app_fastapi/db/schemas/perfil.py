@@ -1,5 +1,7 @@
 from pydantic import BaseModel, ConfigDict
 from datetime import date
+from .cuidador import CuidadorForm
+from .persona import Persona
 
 
 class Ubicacion(BaseModel):
@@ -13,7 +15,7 @@ class Ubicacion(BaseModel):
 class PerfilBase(BaseModel):
     sexo: str
     estado_civil: str
-    ocupacion: str | None
+    ocupacion: str
     obra_social: int | None
     cud: bool
     medicacion_check: bool
@@ -31,4 +33,8 @@ class PerfilQuery(PerfilBase, Ubicacion):
 
 class Perfil(PerfilBase, Ubicacion):
     model_config = ConfigDict(from_attributes=True)
-    # id: int
+
+
+class PerfilView(BaseModel):
+    persona: Persona
+    perfil: Perfil

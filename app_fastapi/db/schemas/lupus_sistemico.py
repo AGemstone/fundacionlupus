@@ -1,8 +1,8 @@
 from pydantic import BaseModel, ConfigDict
-from typing import Annotated
-from fastapi import Query
 
-class LupusSistemicoBase(BaseModel):
+
+class LupusSistemico(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
     cerebro: bool
     pulmones: bool
     corazon: bool
@@ -11,8 +11,3 @@ class LupusSistemicoBase(BaseModel):
     gastrointestinal: bool
     oseo_musucular: bool
     otros: str
-
-
-class LupusSistemico(LupusSistemicoBase):
-    model_config = ConfigDict(from_attributes=True)
-    # id_paciente: int

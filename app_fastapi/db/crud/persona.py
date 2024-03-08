@@ -1,7 +1,7 @@
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 import db.schemas.persona as persona_schema
-from db.models import Persona
+from db.models import Persona, Perfil
 
 
 def query_persona_id(nombres: str, apellidos: str, dni: int):
@@ -14,7 +14,7 @@ def query_persona_id(nombres: str, apellidos: str, dni: int):
 def get_personas(db: Session, offset: int | None, limit: int = 10):
     if offset is None:
         offset = 0
-    query = select(Persona).offset(offset).limit(limit)
+    query = select(Persona).join(Perfil).offset(offset).limit(limit)
     return db.execute(query).scalars()
 
 
