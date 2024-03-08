@@ -1,12 +1,12 @@
 <section class="footer">
   <div class="info"></div>
-  <div class="socials">
-    @for (social of socials; track $index){
-    <button mat-button>
-      <a [href]="social.data">
-        <fa-icon [icon]="social.icon" size="2x"></fa-icon>
-      </a>
-    </button>
-    }
+    <div class="socials">
+      @for (social of socials; track $index){
+        <button mat-button>
+          <a [href]="social.data">
+            <fa-icon [icon]="social.icon" size="2x"></fa-icon>
+          </a>
+        </button>
+      }
   </div>
 </section>

@@ -28,11 +28,11 @@ export class HeaderMenuComponent {
   menus = [
     {
       name: "Perfil",
-      items: [{ name: "Formulario", route: "profile/form" }],
+      items: [{ name: "Formulario", route: "perfil/form" }],
     },
     {
       name: "Admin",
-      items: [{ name: "Perfiles", route: "admin/profile/list" }],
+      items: [{ name: "Perfiles", route: "admin/perfil/list" }],
     },
   ];
 

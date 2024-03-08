@@ -3,23 +3,26 @@
 .footer {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr;
-  grid-template-areas: "one socials";
   align-items: end;
   background-color: mat.get-theme-color(v.$theme, primary, default);
+  padding: 3rem 0;
 }
 a {
   color: mat.get-theme-color(v.$theme, accent, default);
 }
 .socials {
-  // height: 100$%;
-  display: flex;
-  width: 100%;
-  // align-items: flex-end;
-  justify-content: flex-end;
-  margin: 1rem;
+  
+  justify-self: end;
   button {
     margin-right: 1rem;
-    height: 64px;
+    height: 32px;
   }
+}
+
+.contact {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  justify-content: end;
+  align-content: end;
+  
 }

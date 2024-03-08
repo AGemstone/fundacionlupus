@@ -3,7 +3,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule, MatMenuTrigger } from "@angular/material/menu";
 import { Router } from "@angular/router";
-import { IHeaderMenuPanelItem } from "@app/interfaces/iheader-menu-panel-item";
+import { HeaderMenuPanelItemInterface } from "@app/interfaces/header-menu-panel-item.interface";
 
 @Component({
   selector: "app-menu-panel",
@@ -15,7 +15,7 @@ import { IHeaderMenuPanelItem } from "@app/interfaces/iheader-menu-panel-item";
 })
 export class MenuPanelComponent {
   @Input() menuName!: string;
-  @Input() menuItems!: IHeaderMenuPanelItem[];
+  @Input() menuItems!: HeaderMenuPanelItemInterface[];
   
   router = inject(Router);
   
