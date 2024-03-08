@@ -1,0 +1,77 @@
+<section class="profile-view">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Lupus</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="card-content">
+        <span class="item-key">Tipo de lupus: </span>
+        <span class="item-value">{{ perfil.tipo_lupus }}</span>
+        <span class="item-key">Fecha de diagnostico: </span>
+        <span class="item-value">{{
+          perfil.fecha_diagnostico | date : "longDate"
+        }}</span>
+        <span class="item-key">Estado civil: </span>
+        <span class="item-value">{{ perfil.estado_civil }}</span>
+        <span class="item-key">Obra social: </span>
+        <span class="item-value">{{
+          perfil.obra_social ? getObraSocial(perfil.obra_social) : "No posee"
+        }}</span>
+        <span class="item-key">Posee CUD?: </span>
+        <span class="item-value">{{ perfil.cud | boolView }}</span>
+        <span class="item-key">Visita regularmente a su medico?: </span>
+        <span class="item-value">{{ perfil.visita_check | boolView }}</span>
+        <span class="item-key"
+          >Consume regularmente su medicacion recetada?:
+        </span>
+        <span class="item-value">{{ perfil.medicacion_check | boolView }}</span>
+        <span class="item-key"
+          >Acudio alguna vez de emergencia a un hospital?:
+        </span>
+        <span class="item-value">{{ perfil.urgencia_check | boolView }}</span>
+        <span class="item-key">De donde obtiene su medicacion?: </span>
+        <span class="item-value">{{ perfil.fuente_medicacion }}</span>
+        <span class="item-key">Fecha de su ultima visita al medico: </span>
+        <span class="item-value">{{
+          perfil.ultima_visita | date : "longDate"
+        }}</span>
+      </div>
+      <div class="card-padding"></div>
+    </mat-card-content>
+    <mat-card-actions>
+      <div></div>
+      <button mat-raised-button class="edit-button">Editar</button>
+    </mat-card-actions>
+  </mat-card>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Medicacion</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div>
+        @for(medicamento of (medicacion | slice: medicacionPagina * 2
+        :medicacionPagina * 2 + 2); track $index){
+        <mat-card
+          ><mat-card-header>
+            <mat-card-title>{{ medicamento.medicamento }} </mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <span class="item-key">Dosis (mg/ml): </span>
+            <span class="item-value">{{ medicamento.dosis_mg_ml }}</span>
+            <span class="item-key">Frecuencia de consumo: </span>
+            <span class="item-value">{{ medicamento.frecuencia }}</span>
+          </mat-card-content>
+        </mat-card>
+        }
+      </div>
+      <div class="card-padding"></div>
+    </mat-card-content>
+    <mat-card-actions>
+      <div>
+        <button mat-icon-button><mat-icon>navigate_before</mat-icon></button>
+        <button mat-icon-button><mat-icon>navigate_next</mat-icon></button>
+      </div>
+      <button mat-raised-button class="edit-button">Editar</button>
+    </mat-card-actions>
+  </mat-card>
+</section>

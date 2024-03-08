@@ -1,0 +1,61 @@
+@use "@angular/material" as mat;
+@use "variables" as v;
+.profile-view {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(450px, 1fr));
+  margin: 1rem;
+}
+
+mat-card {
+  margin: 1rem;
+}
+
+mat-card-actions {
+  padding: 1rem 1rem;
+  justify-content: right;
+  align-self: flex-end;
+}
+
+mat-card-header {
+  background-color: mat.get-theme-color(v.$theme, accent, 400);
+  padding: 1rem 2rem;
+}
+mat-card-title {
+  font-weight: bold;
+}
+
+mat-card-content {
+  grid-template-rows: 1fr auto;
+  padding: 1rem 2rem;
+  height: 100%;
+}
+
+.card-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.item-key {
+  display: flex;
+  font-weight: bold;
+  padding: 0.5rem;
+}
+
+.item-value {
+  display: flex;
+  align-self: flex-end;
+  padding: 0.5rem;
+}
+.flexible-card {
+  grid-column-start: span 2;
+}
+
+@media screen and (max-width: v.$small-screen-size) {
+  .profile-view {
+    display: grid;
+    grid-template-columns: minmax(calc(v.$small-screen-size / 2), 1fr);
+  }
+  .flexible-card {
+    grid-column-start: span 1;
+  }
+}

@@ -1,0 +1,28 @@
+<!-- <span class="grid-2-columns"> -->
+@defer(on immediate){
+
+<div style="min-height: 100vh">
+  <mat-tab-group (focusChange)="fetchIfNeeded($event.index)">
+    <mat-tab label="Personal">
+      @if(vistas[0]) {
+      <app-profile-view-personal
+        [vista]="vistas[0]"
+      ></app-profile-view-personal>
+      }
+    </mat-tab>
+
+    <mat-tab label="Salud">
+      @if(vistas[1]) {
+      <app-profile-view-salud [vista]="vistas[1]"></app-profile-view-salud>
+      }
+    </mat-tab>
+    <mat-tab label="Enfermedad">
+      @if(vistas[2]) {
+      <app-profile-view-enfermedad
+        [vista]="vistas[2]"
+      ></app-profile-view-enfermedad>
+      }
+    </mat-tab>
+  </mat-tab-group>
+</div>
+}

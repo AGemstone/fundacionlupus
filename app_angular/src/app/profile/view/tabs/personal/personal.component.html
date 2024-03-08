@@ -1,0 +1,81 @@
+<section class="profile-view">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Paciente</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="card-content">
+        <span class="item-key">Nombres: </span>
+        <span class="item-value">{{ persona.nombres }}</span>
+        <span class="item-key">Apellidos: </span>
+        <span class="item-value">{{ persona.apellidos }}</span>
+        <span class="item-key">DNI: </span>
+        <span class="item-value">{{ persona.dni }}</span>
+        <span class="item-key">Sexo: </span>
+        <span class="item-value">{{ perfil.sexo }}</span>
+        <span class="item-key">Email: </span>
+        <span class="item-value">{{ persona.email }}</span>
+        <span class="item-key">Telefono: </span>
+        <span class="item-value">{{
+          persona.telefono | number : "3.0-0" | emptyStringView : "num"
+        }}</span>
+      </div>
+      <div class="card-padding"></div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button class="edit-button">Editar</button>
+    </mat-card-actions>
+  </mat-card>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Ubicacion</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="card-content">
+        <span class="item-key">Provincia: </span>
+        <span class="item-value">{{ perfil.provincia }}</span>
+        <span class="item-key">Localidad: </span>
+        <span class="item-value">{{ perfil.localidad | emptyStringView }}</span>
+        <span class="item-key">Barrio: </span>
+        <span class="item-value">{{ perfil.barrio | emptyStringView }}</span>
+        <span class="item-key">Direccion: </span>
+        <span class="item-value">{{ perfil.direccion | emptyStringView }}</span>
+        <span class="item-key">Codigo Postal: </span>
+        <span class="item-value">{{
+          perfil.codigo_postal | emptyStringView
+        }}</span>
+      </div>
+      <div class="card-padding"></div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button class="edit-button">Editar</button>
+    </mat-card-actions>
+  </mat-card>
+  @if (cuidador){
+  <mat-card class="flexible-card">
+    <mat-card-header>
+      <mat-card-title>Cuidador</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="card-content">
+        <span class="item-key">Nombres: </span>
+        <span class="item-value">{{ cuidador.nombres }}</span>
+        <span class="item-key">Apellidos: </span>
+        <span class="item-value">{{ cuidador.apellidos }}</span>
+        <span class="item-key">DNI: </span>
+        <span class="item-value">{{ cuidador.dni }}</span>
+        <span class="item-key">Email: </span>
+        <span class="item-value">{{ cuidador.email }}</span>
+        <span class="item-key">Telefono: </span>
+        <span class="item-value">{{
+          cuidador.telefono | number : "3.0-0"
+        }}</span>
+      </div>
+      <div class="card-padding"></div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button class="edit-button">Editar</button>
+    </mat-card-actions>
+  </mat-card>
+  }
+</section>
