@@ -12,7 +12,7 @@ router = APIRouter(
 )
 
 
-@router.get("/", response_model=LupusSistemico)
+@router.get("/", response_model=LupusSistemico|None)
 def get(nombres: str, apellidos: str, dni: int, db: Session = Depends(get_db)):
     return get_lupus_organos(db, nombres, apellidos, dni)
 

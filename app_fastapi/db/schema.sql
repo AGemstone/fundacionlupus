@@ -1,7 +1,6 @@
-CREATE TABLE IF NOT EXISTS lupus_db;
 -- Enums 
-CREATE TYPE IF NOT EXISTS T_sexo AS ENUM('Masculino', 'Femenino');
-CREATE TYPE IF NOT EXISTS T_estado_civil AS ENUM(
+CREATE TYPE T_sexo AS ENUM('Masculino', 'Femenino');
+CREATE TYPE T_estado_civil AS ENUM(
     'Soltero',
     'Casado',
     'Unión libre o unión de hecho',
@@ -9,7 +8,7 @@ CREATE TYPE IF NOT EXISTS T_estado_civil AS ENUM(
     'Divorciado',
     'Viudo'
 );
-CREATE TYPE IF NOT EXISTS T_provincia AS ENUM(
+CREATE TYPE T_provincia AS ENUM(
     'Buenos Aires',
     'Ciudad Autónoma de Buenos Aires',
     'Catamarca',
@@ -35,8 +34,8 @@ CREATE TYPE IF NOT EXISTS T_provincia AS ENUM(
     'Tierra del Fuego, Antártida e Islas del Atlántico Sur',
     'Tucumán'
 );
-CREATE TYPE IF NOT EXISTS T_fuente AS ENUM('Obra Social', 'Ingresos propios', 'Mixto');
-CREATE TYPE IF NOT EXISTS T_lupus AS ENUM('Sistemico', 'Discoide', 'Indefinido');
+CREATE TYPE T_fuente AS ENUM('Obra Social', 'Ingresos propios', 'Mixto');
+CREATE TYPE T_lupus AS ENUM('Sistemico', 'Discoide', 'Indefinido');
 -- Table schemas
 CREATE TABLE IF NOT EXISTS persona(
     id SERIAL PRIMARY KEY,
@@ -85,7 +84,7 @@ CREATE TABLE IF NOT EXISTS perfil(
     ultima_visita DATE NOT NULL,
     fuente_medicacion T_fuente NOT NULL,
     tipo_lupus T_lupus NOT NULL,
-    FOREIGN KEY (obra_social) REFERENCES obra_social(rnos),
+    FOREIGN KEY (obra_social) REFERENCES obra_social(id),
     FOREIGN KEY (id) REFERENCES persona(id) ON DELETE CASCADE
     -- FOREIGN KEY (id_cuidador) REFERENCES cuidador(id) ON DELETE CASCADE
 );

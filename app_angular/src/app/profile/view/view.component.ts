@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { BackendProviderService } from "@app/backend-provider.service";
 import { PerfilInterface } from "@app/interfaces/perfil.interface";
 import { PersonaInterface } from "@app/interfaces/persona.interface";
-import { forkJoin, mergeMap, of } from "rxjs";
+import { firstValueFrom, forkJoin, mergeMap, of } from "rxjs";
 import { ProfileTabsModule } from "./tabs/tabs.module";
 import { dbDataType } from "@app/interfaces/db-data.type";
 
@@ -25,7 +25,8 @@ export class ProfileViewComponent {
   pacienteKey: { [key: string]: number | string } | null = null;
   dbData: { [key: string]: dbDataType } | null = null;
 
-  vistas: { [key: string]: dbDataType }[] = [];
+  vistas: { [key: string]: dbDataType }[] = [{}, {}, {}];
+  dataLoaded = [false, false, false];
 
   constructor() {
     this.route.queryParams
@@ -53,27 +54,34 @@ export class ProfileViewComponent {
         };
         this.dbData = { ...vista };
         this.vistas[0] = vista;
+        this.dataLoaded[0] = true;
       });
   }
-  fetchIfNeeded(tabIndex: number) {
+  async fetchIfNeeded(tabIndex: number) {
     const props: string[][] = [
       ["persona", "cuidador", "perfil"],
       ["perfil", "medicacion"],
       ["otras_enfermedades", "lupus_sistemico", "experiencia_hospitalaria"],
     ];
 
-    let viewObject: any = {};
     for (let prop of props[tabIndex]) {
+      console.log(this.dbData![prop]);
       if (this.dbData![prop]) {
-        viewObject[prop] = this.dbData![prop];
+        if (!this.vistas[tabIndex])
+          this.vistas.splice(tabIndex, 0, { [prop]: this.dbData![prop] });
+        else this.vistas[tabIndex][prop] = this.dbData![prop];
       } else {
-        this.http
-          .get(`${this.backendRoot}/${prop}`, {
+        this.vistas[tabIndex][prop] = (await firstValueFrom(
+          this.http.get(`${this.backendRoot}/${prop}`, {
             params: this.pacienteKey!,
+            observe: "response",
           })
-          .subscribe((response) => (viewObject[prop] = response));
+        ).then((response) => response.body)) as dbDataType;
       }
     }
-    this.vistas[tabIndex] = viewObject;
+    // this.vistas[tabIndex] = viewObject;
+    // console.log(this.vistas)
+    console.log(this.vistas)
+    this.dataLoaded[tabIndex] = true;
   }
 }

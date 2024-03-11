@@ -30,8 +30,11 @@ export class PanelEnfermedadComponent {
   addItem() {
     let enfermedad = this.listControl.value.enfermedad;
     let arrayControl = this.formGroup.get(["otras_enfermedades"]) as FormArray;
+
     let uniqueValues = arrayControl.value.filter((elem: any) =>
-      enfermedad ? elem.toLowerCase() === enfermedad.toLocaleLowerCase() : false
+      enfermedad
+        ? elem.enfermedad.toLowerCase() === enfermedad.toLowerCase()
+        : false
     );
 
     if (enfermedad === "") {

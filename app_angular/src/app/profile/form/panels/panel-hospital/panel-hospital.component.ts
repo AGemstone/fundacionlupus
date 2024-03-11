@@ -38,7 +38,7 @@ export class PanelHospitalComponent {
     ]) as FormArray;
     let uniqueValues = arrayControl.value.filter((elem: any) =>
       unidad_hospitalaria
-        ? elem.toLowerCase() === unidad_hospitalaria.toLowerCase()
+        ? elem.unidad_hospitalaria.toLowerCase() === unidad_hospitalaria.toLowerCase()
         : false
     );
 

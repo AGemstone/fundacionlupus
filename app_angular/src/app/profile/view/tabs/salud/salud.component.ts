@@ -14,52 +14,23 @@ export class SaludViewComponent implements OnInit {
   @Input() vista!: { [key: string]: dbDataType };
   perfil: PerfilInterface = <PerfilInterface>{};
   medicacion: MedicacionInterface[] = [];
-  // = [{
-  //   id: 1,
-  //   medicamento: 'string',
-  //   dosis_mg_ml: 0,
-  //   frecuencia: 0
-  // },
-  // {
-  //   id: 1,
-  //   medicamento: 'string',
-  //   dosis_mg_ml: 0,
-  //   frecuencia: 0
-  // },
-  // {
-  //   id: 1,
-  //   medicamento: 'string',
-  //   dosis_mg_ml: 0,
-  //   frecuencia: 0
-  // },
-  // {
-  //   id: 1,
-  //   medicamento: 'string',
-  //   dosis_mg_ml: 0,
-  //   frecuencia: 0
-  // },
-  // {
-  //   id: 1,
-  //   medicamento: 'string',
-  //   dosis_mg_ml: 0,
-  //   frecuencia: 0
-  // },
-  // {
-  //   id: 1,
-  //   medicamento: 'string',
-  //   dosis_mg_ml: 0,
-  //   frecuencia: 0
-  // },];
-  medicacionPagina = 0;
+  pager: { [key: string]: number } = { medicacion: 0 };
   http = inject(HttpClient);
   backendRoot = inject(BackendProviderService).apiRoot;
 
   ngOnInit(): void {
     this.perfil = this.vista["perfil"] as PerfilInterface;
     this.medicacion = this.vista["medicacion"] as MedicacionInterface[];
+    console.log(Object.keys(this.vista));
   }
 
   getObraSocial(osId: number) {
     this.http.get(`${this.backendRoot}/obra_social/`, { params: { id: osId } });
+  }
+  previousPage(pagerName: string) {
+    this.pager[pagerName]--;
+  }
+  nextPage(pagerName: string) {
+    this.pager[pagerName]++;
   }
 }

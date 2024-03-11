@@ -1,13 +1,14 @@
 <section class="profile-view">
+  @if(organosAfectados ) {
   <mat-card>
     <mat-card-header>
       <mat-card-title>Lupus</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <div class="card-content">
-        @for(organo of organosAfectados.keys;track $index){
-        <span class="item-key">{{ organo | titlecase }}</span>
-        <span class="item-value">{{ organosAfectados.data[organo] }}</span>
+        @for(organo of organosAfectados;track $index){
+        <span class="item-key"> {{ organo.name | titlecase }} </span>
+        <span class="item-value">{{ organo.data }}</span>
         }
       </div>
       <div class="card-padding"></div>
@@ -17,14 +18,15 @@
       <button mat-raised-button class="edit-button">Editar</button>
     </mat-card-actions>
   </mat-card>
+  }
   <mat-card>
     <mat-card-header>
       <mat-card-title>Otras enfermedades</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <div class="card-content">
-        @for(enfermedad of (enfermedades | slice: enfermedadesPagina * 2
-        :enfermedadesPagina * 2 + 2); track $index){
+        @for(enfermedad of (enfermedades | slice: pager['enfermedades'] * 2
+        :pager['enfermedades'] * 2 + 2); track $index){
         <span class="item-key">Enfermedad:</span>
         <span class="item-value">{{ enfermedad.enfermedad }}</span>
         }
@@ -33,8 +35,20 @@
     </mat-card-content>
     <mat-card-actions>
       <div>
-        <button mat-icon-button><mat-icon>navigate_before</mat-icon></button>
-        <button mat-icon-button><mat-icon>navigate_next</mat-icon></button>
+        <button
+          mat-icon-button
+          (click)="previousPage('enfermedades')"
+          [disabled]="pager['enfermedades'] - 1 < 0"
+        >
+          <mat-icon>navigate_before</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          (click)="nextPage('enfermedades')"
+          [disabled]="pager['enfermedades'] * 2 + 2 >= enfermedades.length"
+        >
+          <mat-icon>navigate_next</mat-icon>
+        </button>
       </div>
       <button mat-raised-button class="edit-button">Editar</button>
     </mat-card-actions>
@@ -45,8 +59,8 @@
     </mat-card-header>
     <mat-card-content>
       <div>
-        @for(experiencia of (experiencias | slice: experienciasPagina * 2
-        :experienciasPagina * 2 + 1); track experiencia.id){
+        @for(experiencia of (experiencias | slice: pager['experiencias']
+        :pager['experiencias'] + 1); track experiencia.id){
         <mat-card
           ><mat-card-header>
             <mat-card-title
@@ -63,8 +77,20 @@
     </mat-card-content>
     <mat-card-actions>
       <div>
-        <button mat-icon-button><mat-icon>navigate_before</mat-icon></button>
-        <button mat-icon-button><mat-icon>navigate_next</mat-icon></button>
+        <button
+          mat-icon-button
+          (click)="previousPage('experienciasPagina')"
+          [disabled]="pager['experiencias'] - 1 < 0"
+        >
+          <mat-icon>navigate_before</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          (click)="nextPage('experienciasPagina')"
+          [disabled]="pager['experiencias'] + 1 >= experiencias.length"
+        >
+          <mat-icon>navigate_next</mat-icon>
+        </button>
       </div>
       <button mat-raised-button class="edit-button">Editar</button>
     </mat-card-actions>

@@ -49,8 +49,8 @@
     </mat-card-header>
     <mat-card-content>
       <div>
-        @for(medicamento of (medicacion | slice: medicacionPagina * 2
-        :medicacionPagina * 2 + 2); track $index){
+        @for(medicamento of (medicacion | slice: pager['medicacion'] * 2
+        :pager['medicacion'] * 2 + 2); track $index){
         <mat-card
           ><mat-card-header>
             <mat-card-title>{{ medicamento.medicamento }} </mat-card-title>
@@ -68,8 +68,20 @@
     </mat-card-content>
     <mat-card-actions>
       <div>
-        <button mat-icon-button><mat-icon>navigate_before</mat-icon></button>
-        <button mat-icon-button><mat-icon>navigate_next</mat-icon></button>
+        <button
+          mat-icon-button
+          (click)="previousPage('medicacion')"
+          [disabled]="pager['medicacion'] - 1 < 0"
+        >
+          <mat-icon>navigate_before</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          (click)="nextPage('medicacion')"
+          [disabled]="pager['medicacion'] * 2 + 2 >= medicacion.length"
+        >
+          <mat-icon>navigate_next</mat-icon>
+        </button>
       </div>
       <button mat-raised-button class="edit-button">Editar</button>
     </mat-card-actions>

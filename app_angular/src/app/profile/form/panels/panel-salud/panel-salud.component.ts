@@ -59,12 +59,15 @@ export class PanelSaludComponent implements OnInit {
   ];
   formGroup_T = FormGroup;
   obrasSociales: ObraSocialInterface[] = [];
-  obrasSocialesFiltered: Observable<{ name: string; rnos: number | null }[]> =
-    new Observable<{ name: string; rnos: number | null }[]>();
+  obrasSocialesFiltered: Observable<ObraSocialInterface[]> = new Observable<
+    ObraSocialInterface[]
+  >();
 
   constructor() {
     this.http
-      .get<ObraSocialInterface[]>(`${this.backend.apiRoot}/extra/obra_social`)
+      .get<ObraSocialInterface[]>(
+        `${this.backend.apiRoot}/obra_social/obra_social`
+      )
       .subscribe((data) => {
         this.obrasSociales = data;
       });
@@ -86,23 +89,14 @@ export class PanelSaludComponent implements OnInit {
       );
   }
 
-  private _filterObraSociales(
-    value: string
-  ): { name: string; rnos: number | null }[] {
+  private _filterObraSociales(value: string): ObraSocialInterface[] {
     const searchValue = value.toLowerCase();
-    const obrasSocialesStr = this.obrasSociales.map((obra_social) => {
-      return {
-        name: `${obra_social.nombre} (${obra_social.sigla})`,
-        rnos: obra_social.rnos,
-      };
-    });
-    return obrasSocialesStr.filter((option) =>
-      option.name.toLowerCase().includes(searchValue)
+    return this.obrasSociales.filter((option) =>
+      option.nombre.toLowerCase().includes(searchValue)
     );
   }
 
   notifyOpen(value: number) {
-    // console.log(this.formGroup.get().disabled)
     this.opened.emit(value);
   }
 

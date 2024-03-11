@@ -58,12 +58,12 @@
       <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
         @for (option of obrasSocialesFiltered | async; track option) {
         <mat-option
-          [value]="option.name"
+          [value]="option.nombre"
           (onSelectionChange)="
-            formGroup.get(['obra_social', 'rnos'])!.setValue(option.rnos)
+            formGroup.get(['obra_social', 'id'])!.setValue(option.id)
           "
         >
-          {{ option.name }}
+          {{ option.nombre }}
         </mat-option>
         }
       </mat-autocomplete>

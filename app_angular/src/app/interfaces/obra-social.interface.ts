@@ -1,5 +1,4 @@
 export interface ObraSocialInterface {
-  rnos: number | null;
+  id: number;
   nombre: string;
-  sigla: string;
 }

@@ -14,12 +14,9 @@ export class EnfermedadViewComponent implements OnInit {
   @Input() vista!: { [key: string]: dbDataType };
   enfermedades: EnfermedadInterface[] = [];
   experiencias: ExperienciaInterface[] = [];
-  organosAfectados = {
-    keys: Object.keys(<LupusSistemicoInterface>{}),
-    data: <{ [key: string]: number | boolean | string }>{},
-  };
-  experienciasPagina = 0;
-  enfermedadesPagina = 0;
+  organosAfectados: { name: string; data: { [key: string]: any } }[] | null =
+    null;
+  pager: { [key: string]: number } = { experiencias: 0, enfermedades: 0 };
   ngOnInit(): void {
     this.enfermedades = this.vista[
       "otras_enfermedades"
@@ -27,8 +24,24 @@ export class EnfermedadViewComponent implements OnInit {
     this.experiencias = this.vista[
       "experiencia_hospitalaria"
     ] as ExperienciaInterface[];
-    this.organosAfectados.data = this.vista["lupus_sistematico"] as {
-      [key: string]: number | boolean | string;
-    };
+    if (this.vista["lupus_sistemico"])
+      this.organosAfectados = Object.keys(this.vista["lupus_sistemico"]).map(
+        (prop) => {
+          return {
+            name: prop,
+            data: (this.vista["lupus_sistemico"] as { [key: string]: any })[
+              prop
+            ],
+          };
+        }
+      );
+  }
+  previousPage(pagerName: string) {
+    this.pager[pagerName]--;
+    console.log(this.pager)
+  }
+  nextPage(pagerName: string) {
+    this.pager[pagerName]++;
+    console.log(this.pager)
   }
 }
